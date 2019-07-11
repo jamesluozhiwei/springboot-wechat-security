@@ -1552,7 +1552,7 @@ public class SecurityApplication extends SpringBootServletInitializer {
 
 登录后携带token访问
 ![登录后携带token访问](https://raw.githubusercontent.com/jamesluozhiwei/FigureBed/master/2019/springboot/security-logined.png)
-#项目地址
+# 项目地址
 github地址：[https://github.com/jamesluozhiwei/security](https://github.com/jamesluozhiwei/security)
 
 如果对您有帮助请高抬贵手点个star
