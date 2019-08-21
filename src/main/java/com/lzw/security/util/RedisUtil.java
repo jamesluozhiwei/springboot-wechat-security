@@ -28,7 +28,8 @@ public class RedisUtil {
     /**
      * 查询key,支持模糊查询
      * @param key
-     * */
+     * @return
+     */
     public Set<String> keys(String key){
         return redisTemplate.keys(key);
     }
@@ -36,7 +37,8 @@ public class RedisUtil {
     /**
      * 字符串获取值
      * @param key
-     * */
+     *
+     */
     public Object get(String key){
         return redisTemplate.opsForValue().get(key);
     }
@@ -45,7 +47,7 @@ public class RedisUtil {
      * 字符串存入值
      * 默认过期时间为2小时
      * @param key
-     * */
+     */
     public void set(String key, String value){
         set(key,value,expirationMilliSeconds);
     }
@@ -54,7 +56,7 @@ public class RedisUtil {
      * 字符串存入值
      * @param expire 过期时间（毫秒计）
      * @param key
-     * */
+     */
     public void set(String key, String value,long expire){
         redisTemplate.opsForValue().set(key,value, expire,TimeUnit.MILLISECONDS);
     }
@@ -63,7 +65,7 @@ public class RedisUtil {
      * 删出key
      * 这里跟下边deleteKey（）最底层实现都是一样的，应该可以通用
      * @param key
-     * */
+     */
     public void delete(String key){
         redisTemplate.opsForValue().getOperations().delete(key);
     }
