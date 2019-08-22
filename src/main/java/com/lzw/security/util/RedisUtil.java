@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * redis工具类
- * @author: jamesluozhiwei
+ * @author jamesluozhiwei
  */
 @Component
 public class RedisUtil {
@@ -19,24 +19,21 @@ public class RedisUtil {
     @Value("${token.expirationMilliSeconds}")
     private long expirationMilliSeconds;
 
-    //@Autowired
-    //private StringRedisTemplate redisTemplate;
-
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<Object, Object> redisTemplate;
 
     /**
      * 查询key,支持模糊查询
-     * @param key
-     * @return
+     * @param key 键
+     * @return set集合
      */
-    public Set<String> keys(String key){
+    public Set<Object> keys(String key){
         return redisTemplate.keys(key);
     }
 
     /**
      * 字符串获取值
-     * @param key
+     * @param key 键
      *
      */
     public Object get(String key){
@@ -46,7 +43,7 @@ public class RedisUtil {
     /**
      * 字符串存入值
      * 默认过期时间为2小时
-     * @param key
+     * @param key 键
      */
     public void set(String key, String value){
         set(key,value,expirationMilliSeconds);
@@ -55,7 +52,7 @@ public class RedisUtil {
     /**
      * 字符串存入值
      * @param expire 过期时间（毫秒计）
-     * @param key
+     * @param key 键
      */
     public void set(String key, String value,long expire){
         redisTemplate.opsForValue().set(key,value, expire,TimeUnit.MILLISECONDS);
@@ -64,7 +61,7 @@ public class RedisUtil {
     /**
      * 删出key
      * 这里跟下边deleteKey（）最底层实现都是一样的，应该可以通用
-     * @param key
+     * @param key 键
      */
     public void delete(String key){
         redisTemplate.opsForValue().getOperations().delete(key);
@@ -76,8 +73,8 @@ public class RedisUtil {
      * @param filed  filed
      * @param domain 对象
      */
-    public void hset(String key,String filed,Object domain){
-        hset(key,filed,domain,expirationMilliSeconds);
+    public void hashSet(String key,String filed,Object domain){
+        hashSet(key,filed,domain,expirationMilliSeconds);
     }
 
     /**
@@ -87,29 +84,28 @@ public class RedisUtil {
      * @param domain 对象
      * @param expire 过期时间（毫秒计）
      */
-    public void hset(String key,String filed,Object domain,long expire){
+    public void hashSet(String key, String filed, Object domain, long expire){
         redisTemplate.opsForHash().put(key, filed, domain);
         setKeyExpire(key,expirationMilliSeconds);
     }
 
     /**
      * 添加HashMap
-     *
      * @param key    key
      * @param hm    要存入的hash表
      */
-    public void hset(String key, HashMap<String,Object> hm){
+    public void hashSet(String key, HashMap<String,Object> hm){
         redisTemplate.opsForHash().putAll(key,hm);
         setKeyExpire(key,expirationMilliSeconds);
     }
 
     /**
      * 如果key存在就不覆盖
-     * @param key
-     * @param filed
-     * @param domain
+     * @param key 键
+     * @param filed 字段
+     * @param domain 值
      */
-    public void hsetAbsent(String key,String filed,Object domain){
+    public void hashSetAbsent(String key,String filed,Object domain){
         redisTemplate.opsForHash().putIfAbsent(key, filed, domain);
     }
 
@@ -119,7 +115,7 @@ public class RedisUtil {
      * @param field 查询的field
      * @return HV
      */
-    public Object hget(String key,String field) {
+    public Object hashGet(String key,String field) {
         return redisTemplate.opsForHash().get(key, field);
     }
 
@@ -128,7 +124,7 @@ public class RedisUtil {
      * @param key 查询的key
      * @return Map<HK, HV>
      */
-    public Object hget(String key) {
+    public Object hashGet(String key) {
         return redisTemplate.opsForHash().entries(key);
     }
 
@@ -143,22 +139,22 @@ public class RedisUtil {
 
     /**
      * 添加set集合
-     * @param key
-     * @param set
-     * @param expire
+     * @param key 键
+     * @param set   集合
+     * @param expire    过期时间
      */
-    public void sset(Object key,Set<?> set,long expire){
+    public void setSet(Object key, Set<?> set, long expire){
         redisTemplate.opsForSet().add(key,set);
         setKeyExpire(key,expire);
     }
 
     /**
      * 添加set集合
-     * @param key
-     * @param set
+     * @param key 键
+     * @param set 集合
      */
-    public void sset(Object key,Set<?> set){
-        sset(key, set,expirationMilliSeconds);
+    public void setSet(Object key, Set<?> set){
+        setSet(key, set,expirationMilliSeconds);
     }
 
     /**
@@ -180,8 +176,8 @@ public class RedisUtil {
 
     /**
      * 更新key的过期时间
-     * @param key
-     * @param expire
+     * @param key 键
+     * @param expire 过期时间
      */
     public void setKeyExpire(Object key,long expire){
         redisTemplate.expire(key,expire,TimeUnit.MILLISECONDS);

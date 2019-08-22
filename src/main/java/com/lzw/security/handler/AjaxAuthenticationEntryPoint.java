@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @author: jamesluozhiwei
- * @description: 用户未登录时返回给前端的数据
+ * 用户未登录时返回给前端的数据
+ * @author jamesluozhiwei
  */
 @Component
 public class AjaxAuthenticationEntryPoint implements AuthenticationEntryPoint {

@@ -5,7 +5,6 @@ import com.lzw.security.common.GenericResponse;
 import com.lzw.security.common.ServiceError;
 import com.lzw.security.entity.User;
 import com.lzw.security.service.WeChatService;
-import com.lzw.security.util.Jcode2SessionUtil;
 import com.lzw.security.util.JwtTokenUtil;
 import com.lzw.security.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +35,7 @@ public class WeChatServiceImpl implements WeChatService {
     private RedisUtil redisUtil;
 
     @Override
-    public GenericResponse wxLogin(String code) throws Exception{
+    public GenericResponse wxLogin(String code){
         JSONObject sessionInfo = JSONObject.parseObject(jcode2Session(code));
 
         Assert.notNull(sessionInfo,"code 无效");
@@ -47,17 +46,17 @@ public class WeChatServiceImpl implements WeChatService {
         // 模拟从数据库获取用户信息
         User user = new User();
         user.setId(1L);
-        Set authoritiesSet = new HashSet();
+        Set<SimpleGrantedAuthority> authoritiesSet = new HashSet<SimpleGrantedAuthority>();
         // 模拟从数据库中获取用户权限
         authoritiesSet.add(new SimpleGrantedAuthority("test:add"));
         authoritiesSet.add(new SimpleGrantedAuthority("test:list"));
         authoritiesSet.add(new SimpleGrantedAuthority("ddd:list"));
         user.setAuthorities(authoritiesSet);
-        HashMap<String,Object> hashMap = new HashMap<>();
+        HashMap<String,Object> hashMap = new HashMap<>(6);
         hashMap.put("id",user.getId().toString());
         hashMap.put("authorities",authoritiesSet);
         String token = JwtTokenUtil.generateToken(user);
-        redisUtil.hset(token,hashMap);
+        redisUtil.hashSet(token,hashMap);
 
         return GenericResponse.response(ServiceError.NORMAL,token);
     }
@@ -66,11 +65,9 @@ public class WeChatServiceImpl implements WeChatService {
      * 登录凭证校验
      * @param code
      * @return
-     * @throws Exception
      */
-    private String jcode2Session(String code)throws Exception{
-        String sessionInfo = Jcode2SessionUtil.jscode2session(appid,secret,code,"authorization_code");//登录grantType固定
-        log.info(sessionInfo);
-        return sessionInfo;
+    private String jcode2Session(String code){
+
+        return null;
     }
 }

@@ -7,6 +7,10 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 
+/**
+ * 用户实体
+ * @author James
+ */
 public class User implements UserDetails, Serializable {
 
     private Long id;
@@ -15,7 +19,10 @@ public class User implements UserDetails, Serializable {
 
     private String password;
 
-    private Set<? extends GrantedAuthority> authorities;//权限列表
+    /**
+     * 权限列表
+     */
+    private Set<? extends GrantedAuthority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

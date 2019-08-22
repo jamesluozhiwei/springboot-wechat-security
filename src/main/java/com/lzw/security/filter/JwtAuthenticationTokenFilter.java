@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.lzw.security.common.GenericResponse;
 import com.lzw.security.common.ServiceError;
 import com.lzw.security.entity.User;
-import com.lzw.security.service.SelfUserDetailsService;
+import com.lzw.security.service.SelfUserDetailsServiceImpl;
 import com.lzw.security.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,8 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * @author: jamesluozhiwei
- * @description: 确保在一次请求只通过一次filter，而不需要重复执行
+ * 确保在一次请求只通过一次filter，而不需要重复执行
+ * @author jamesluozhiwei
  */
 @Component
 @Slf4j
@@ -36,7 +36,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     private long expirationMilliSeconds;
 
     @Autowired
-    SelfUserDetailsService userDetailsService;
+    SelfUserDetailsServiceImpl userDetailsService;
 
     @Autowired
     RedisUtil redisUtil;
@@ -62,7 +62,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         }
 
         //获取缓存中的信息(根据自己的业务进行拓展)
-        HashMap<String,Object> hashMap = (HashMap<String, Object>) redisUtil.hget(authToken);
+        HashMap<String,Object> hashMap = (HashMap<String, Object>) redisUtil.hashGet(authToken);
         //从tokenInfo中取出用户信息
         User user = new User();
         user.setId(Long.parseLong(hashMap.get("id").toString())).setAuthorities((Set<? extends GrantedAuthority>) hashMap.get("authorities"));

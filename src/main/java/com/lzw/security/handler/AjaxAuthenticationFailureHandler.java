@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @author: jamesluozhiwei
- * @description: 用户登录失败时返回给前端的数据
+ * 用户登录失败时返回给前端的数据
+ * @author jamesluozhiwei
  */
 @Component
 public class AjaxAuthenticationFailureHandler implements AuthenticationFailureHandler {

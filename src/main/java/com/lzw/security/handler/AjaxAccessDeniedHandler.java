@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @author: jamesluozhiwei
- * @description: 无权访问
+ * 无权访问 处理
+ * @author jamesluozhiwei
  */
 @Component
 public class AjaxAccessDeniedHandler implements AccessDeniedHandler {

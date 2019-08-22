@@ -9,9 +9,9 @@ public interface WeChatService {
 
     /**
      * 小程序登录
-     * @param code
-     * @return
+     * @param code 小程序登录 code
+     * @return 业务结果
      */
-    GenericResponse wxLogin(String code)throws Exception;
+    GenericResponse wxLogin(String code);
 
 }

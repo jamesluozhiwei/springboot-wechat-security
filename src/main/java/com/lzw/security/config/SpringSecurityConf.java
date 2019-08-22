@@ -3,7 +3,7 @@ package com.lzw.security.config;
 import com.lzw.security.common.NoPasswordEncoder;
 import com.lzw.security.filter.JwtAuthenticationTokenFilter;
 import com.lzw.security.handler.*;
-import com.lzw.security.service.SelfUserDetailsService;
+import com.lzw.security.service.SelfUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -42,7 +41,7 @@ public class SpringSecurityConf extends WebSecurityConfigurerAdapter {
     AjaxAccessDeniedHandler accessDeniedHandler;//无权访问返回的 JSON 格式数据给前端（否则为 403 html 页面）
 
     @Autowired
-    SelfUserDetailsService userDetailsService; // 自定义user
+    SelfUserDetailsServiceImpl userDetailsService; // 自定义user
 
     @Autowired
     JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter; // JWT 拦截器

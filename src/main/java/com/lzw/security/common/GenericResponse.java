@@ -1,5 +1,9 @@
 package com.lzw.security.common;
 
+/**
+ * 业务响应结果
+ * @author James
+ */
 public class GenericResponse {
 
     private boolean success;

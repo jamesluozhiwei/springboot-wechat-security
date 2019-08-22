@@ -104,24 +104,11 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.7</version>
         </dependency>
-        <!-- Jcode2Session解密所需jar包 -->
-        <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15 -->
+        <!--引入微信开发轮子-->
         <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15</artifactId>
-            <version>1.46</version>
-        </dependency>
-        <!-- 注意导入xfire-all jar包会与spring冲突 -->
-        <dependency>
-            <groupId>org.codehaus.xfire</groupId>
-            <artifactId>xfire-all</artifactId>
-            <version>1.2.6</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-miniapp</artifactId>
+            <version>3.5.0</version>
         </dependency>
     </dependencies>
 

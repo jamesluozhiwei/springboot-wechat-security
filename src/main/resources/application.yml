@@ -39,7 +39,7 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
-    password: zcwandyy
+    password: 123456
 
 
 #mybatis是独立节点，需要单独配置
