@@ -62,8 +62,16 @@ token:
   expirationMilliSeconds: 7200000
 
 #微信相关参数
-weChat:
-  #小程序appid
-  appid: aaaaaaaaaaaaaaaa
-  #小程序密钥
-  secret: ssssssssssssssss
+logging:
+  level:
+    org.springframework.web: info
+    com.github.binarywang.demo.wx.miniapp: debug
+    cn.binarywang.wx.miniapp: debug
+wx:
+  miniapp:
+    configs:
+      - appid: xxx #微信小程序的appid
+        secret: xxx #微信小程序的Secret
+        token: xxx #微信小程序消息服务器配置的token
+        aesKey: xxx #微信小程序消息服务器配置的EncodingAESKey
+        msgDataFormat: JSON
